@@ -25,18 +25,34 @@ class Dashboard(models.Model):
 
     is_public = models.BooleanField(default=True)
 
+    def __str__(self) -> str:
+        return f'{self.title}'
+
 
 class DashboardColumn(models.Model):
-    dashboard = models.ForeignKey(Dashboard, on_delete=models.CASCADE, null=True)
+    class Meta:
+        verbose_name = "Column"
+        verbose_name_plural = "Columns"
+
+    dashboard = models.ForeignKey(Dashboard, on_delete=models.CASCADE,
+                                  null=True)
 
     title = models.CharField(max_length=128)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    def __str__(self) -> str:
+        return f'{self.title}'
+
 
 class ToDoItem(models.Model):
-    dashboard_column = models.ForeignKey(DashboardColumn, on_delete=models.CASCADE)
+    class Meta:
+        verbose_name = "ToDo Item"
+        verbose_name_plural = "ToDo Items"
+
+    dashboard_column = models.ForeignKey(DashboardColumn,
+                                         on_delete=models.CASCADE)
 
     description = models.TextField()
     label = models.CharField(max_length=128, blank=True)
@@ -51,3 +67,6 @@ class ToDoItem(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     subtask_id = models.ForeignKey("self", on_delete=models.CASCADE, null=True)
+
+    def __str__(self) -> str:
+        return f'ToDo {self.id}'
