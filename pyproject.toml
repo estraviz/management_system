@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "management-system"
+version = "0.1.0"
+description = "Based on this course from Pluralsight: Django Admin"
+authors = ["Javier Estraviz <javier.estraviz@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+Django = "^4.2.4"
+
+[tool.poetry.group.dev.dependencies]
+black = "^23.7.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
