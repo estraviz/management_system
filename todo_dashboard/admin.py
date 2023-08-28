@@ -95,6 +95,20 @@ class TodoItemFilter(admin.SimpleListFilter):
 
 
 class ToDoItemAdmin(admin.ModelAdmin):
+
+    def add_one_hour_to_estimated_time(self, request, queryset):
+        for todo_item in queryset:
+            todo_item.time_estimate_hours += 1
+            todo_item.save()
+
+        self.message_user(request,
+                          "Successfully added one hour to estimated time")
+
+    add_one_hour_to_estimated_time.short_description = "Add 1 hour"
+
+    actions = ('add_one_hour_to_estimated_time',)
+
+
     # fields = ('description', 'comment', 'label',
     #           ('due_date', 'time_estimate_hours'))
     save_on_top = True
