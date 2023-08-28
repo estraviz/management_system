@@ -7,6 +7,9 @@ from .models import Dashboard, DashboardColumn, Member, ToDoItem
 
 
 class DashboardAdmin(admin.ModelAdmin):
+    fields = (('title', 'is_public'), 'created_at', 'updated_at')
+    readonly_fields = ('created_at', 'updated_at')
+
     list_display = ('id', 'title', 'get_owner', 'created_at', 'updated_at',
                     'is_public')
     list_display_links = ('id', 'title')
@@ -28,6 +31,8 @@ class DashboardAdmin(admin.ModelAdmin):
 
 class ColumnAdmin(admin.ModelAdmin):
     list_display = ('title', 'dashboard', 'created_at', 'updated_at')
+    fields = ('title', 'dashboard', 'created_at', 'updated_at')
+    readonly_fields = ('created_at', 'updated_at')
 
 
 class MemberAdmin(admin.ModelAdmin):
@@ -66,6 +71,21 @@ class TodoItemFilter(admin.SimpleListFilter):
 
 
 class ToDoItemAdmin(admin.ModelAdmin):
+    # fields = ('description', 'comment', 'label',
+    #           ('due_date', 'time_estimate_hours'))
+    save_on_top = True
+
+    fieldsets = (
+        ('Main', {
+            'fields': ('description', 'comment', ('label', 'dashboard_column'))
+            }),
+        ('Estimations', {
+            'fields': (('start_date', 'due_date'), 'time_estimate_hours'),
+            'description': 'Dates and Times',
+            'classes': ('collapse',)
+            }),
+    )
+
     list_display = ('description', 'label', 'comment', 'due_date',
                     'time_estimate_hours',)
     list_editable = ('label', 'time_estimate_hours')
