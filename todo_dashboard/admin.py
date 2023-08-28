@@ -1,12 +1,19 @@
 from typing import Any, List, Tuple
 
 from django.contrib import admin
+from django.http.request import HttpRequest
 from django.utils.safestring import mark_safe
 
 from .models import Dashboard, DashboardColumn, Member, ToDoItem
 
 
+class ColumnInline(admin.StackedInline):
+    model = DashboardColumn
+
+
 class DashboardAdmin(admin.ModelAdmin):
+    inlines = [ColumnInline, ]
+
     fields = (('title', 'is_public'), 'created_at', 'updated_at')
     readonly_fields = ('created_at', 'updated_at')
 
@@ -29,10 +36,27 @@ class DashboardAdmin(admin.ModelAdmin):
     get_owner.short_description = "Owner"
 
 
+class TodoItemInline(admin.TabularInline):
+    model = ToDoItem
+
+    def get_extra(self, request: HttpRequest, obj: Any | None = ..., **kwargs: Any) -> int:
+        if obj:
+            return 1
+        else:
+            return 5
+
+    show_change_link = True
+    fk_name = 'dashboard_column'
+    verbose_name = 'My Todo Item'
+    verbose_name_plural = 'My Todo Items'
+
+
 class ColumnAdmin(admin.ModelAdmin):
     list_display = ('title', 'dashboard', 'created_at', 'updated_at')
     fields = ('title', 'dashboard', 'created_at', 'updated_at')
     readonly_fields = ('created_at', 'updated_at')
+
+    inlines = [TodoItemInline]
 
 
 class MemberAdmin(admin.ModelAdmin):
