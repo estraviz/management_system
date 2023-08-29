@@ -1,10 +1,26 @@
 from typing import Any, List, Tuple
 
 from django.contrib import admin
+from django.contrib.auth.models import Group
 from django.http.request import HttpRequest
+from django.urls.resolvers import URLResolver
 from django.utils.safestring import mark_safe
+from users.models import User
 
 from .models import Dashboard, DashboardColumn, Member, ToDoItem
+
+
+class MyAdminSite(admin.AdminSite):
+
+    def get_urls(self) -> List[URLResolver]:
+        urlpatterns = super().get_urls()
+        urlpatterns += [
+            # add later
+        ]
+        return urlpatterns
+
+
+admin.site = MyAdminSite()
 
 
 class ColumnInline(admin.StackedInline):
@@ -136,6 +152,11 @@ class ToDoItemAdmin(admin.ModelAdmin):
 
     actions_on_bottom = True
 
+
+from django.contrib.auth.admin import GroupAdmin, UserAdmin
+
+admin.site.register(User, UserAdmin)
+admin.site.register(Group, GroupAdmin)
 
 admin.site.register(Member, MemberAdmin)
 admin.site.register(Dashboard, DashboardAdmin)

@@ -31,13 +31,15 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
+    'todo_dashboard.apps.TodoDashboardConfig',
+    'todo_dashboard.apps.MyAdminConfig',
+    # 'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'todo_dashboard',
+    #'todo_dashboard',
     'users',
     'debug_toolbar',
 ]
@@ -133,3 +135,7 @@ INTERNAL_IPS = [
     "127.0.0.1",
     # ...
 ]
+
+STATICFILES_DIRS = (
+    BASE_DIR / 'todo_dashboard' / 'static',
+)
