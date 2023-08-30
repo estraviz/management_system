@@ -7,6 +7,7 @@ from django.urls.resolvers import URLResolver
 from django.utils.safestring import mark_safe
 from users.models import User
 
+from .forms import ToDoItemForm
 from .models import Dashboard, DashboardColumn, Member, ToDoItem
 
 
@@ -111,6 +112,7 @@ class TodoItemFilter(admin.SimpleListFilter):
 
 
 class ToDoItemAdmin(admin.ModelAdmin):
+    form = ToDoItemForm
 
     def add_one_hour_to_estimated_time(self, request, queryset):
         for todo_item in queryset:

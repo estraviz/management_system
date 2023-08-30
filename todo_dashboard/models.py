@@ -51,6 +51,11 @@ class ToDoItem(models.Model):
         verbose_name = "ToDo Item"
         verbose_name_plural = "ToDo Items"
 
+    # def clean(self):
+    #     if self.start_date and self.due_date:
+    #         if self.start_date > self.due_date:
+    #             raise ValidationError('Start date should be before due date')
+
     dashboard_column = models.ForeignKey(DashboardColumn,
                                          on_delete=models.CASCADE)
 
