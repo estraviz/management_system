@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'django.contrib.admindocs',
     'todo_dashboard.apps.TodoDashboardConfig',
     'todo_dashboard.apps.MyAdminConfig',
     # 'django.contrib.admin',
@@ -39,12 +40,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    #'todo_dashboard',
     'users',
     'debug_toolbar',
 ]
 
 MIDDLEWARE = [
+    'django.contrib.admindocs.middleware.XViewMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',

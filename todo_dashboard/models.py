@@ -47,6 +47,10 @@ class DashboardColumn(models.Model):
 
 
 class ToDoItem(models.Model):
+    """
+    Represents a task assigned to a :model:`TodoDashboard.Member`.
+    Each task is assigned to a :model:`TodoDashboard.DashboardColumn`.
+    """
     class Meta:
         verbose_name = "ToDo Item"
         verbose_name_plural = "ToDo Items"
