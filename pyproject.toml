@@ -10,6 +10,7 @@ python = "^3.11"
 Django = "^4.2.4"
 pillow = "^10.0.0"
 django-debug-toolbar = "^4.2.0"
+docutils = "^0.20.1"
 
 [tool.poetry.group.dev.dependencies]
 black = "^23.7.0"
